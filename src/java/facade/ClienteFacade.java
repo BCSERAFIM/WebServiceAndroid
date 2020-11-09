@@ -34,8 +34,7 @@ public class ClienteFacade {
             lista = clienteDAO.listarCliente();
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
         return lista;
 
@@ -50,12 +49,10 @@ public class ClienteFacade {
 
         try {
             clienteDAO.inserir(cliente);
-            FacesMessage msg = new FacesMessage("Cliente inserido com Sucesso");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
     }
 
@@ -66,12 +63,9 @@ public class ClienteFacade {
         try {
             clienteDAO.atualizarCliente(selecionado);
 
-            FacesMessage msg = new FacesMessage("Cliente atualizado com sucesso");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
 
     }
