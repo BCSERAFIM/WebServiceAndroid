@@ -21,6 +21,7 @@ public class WsProduto {
     public WsProduto() {
     }
 
+    
    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
