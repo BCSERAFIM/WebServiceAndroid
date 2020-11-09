@@ -29,7 +29,6 @@ public class WsProduto {
         throw new UnsupportedOperationException();
     }
 
-    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
