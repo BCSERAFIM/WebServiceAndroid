@@ -1,6 +1,5 @@
 package facade;
 
-
 import entity.Cliente;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,13 +40,10 @@ public class ClienteFacade {
         return lista;
 
     }
-    
-   
 
     public void cadastraCliente(Cliente cliente) {
 
         cliente.setCpf(cliente.getCpf().replace(".", ""));
-        
 
         cliente.setNome(cliente.getNome().toUpperCase());
         cliente.setSobreNome(cliente.getSobreNome().toUpperCase());
@@ -66,7 +62,7 @@ public class ClienteFacade {
     public void atualizarCliente(Cliente selecionado) {
         selecionado.setNome(selecionado.getNome().toUpperCase());
         selecionado.setSobreNome(selecionado.getSobreNome().toUpperCase());
-       
+
         try {
             clienteDAO.atualizarCliente(selecionado);
 
@@ -80,31 +76,26 @@ public class ClienteFacade {
 
     }
 
-    public void deletarCliente(Cliente selecionado) {
+    public void deletarCliente(Integer id) {
 
         try {
-            clienteDAO.deletarCliente(selecionado.getId());
+            clienteDAO.deletarCliente(id);
 
-            FacesMessage msg = new FacesMessage("Cliente deletado com sucesso");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
 
     }
 
-    public void consultaCpf(String cpf) {
+    public Cliente consultaCpf(String cpf) {
         Cliente cliente = new Cliente();
         try {
             cliente = clienteDAO.consultarClientePeloCpfCnpj(cpf);
-            FacesMessage msg = new FacesMessage("Cliente encontrado");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return cliente;
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
 
     }
