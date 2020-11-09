@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,14 +17,14 @@ import javax.ws.rs.core.MediaType;
 
 @Path("produto")
 
-public class WsOrcamento {
+public class WsProduto {
 
     private ProdutoFacade produtoFacade = new ProdutoFacade();
 
     @Context
     private UriInfo context;
 
-    public WsOrcamento() {
+    public WsProduto() {
     }
 
     @GET
@@ -47,23 +48,24 @@ public class WsOrcamento {
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     public void inserirProduto(Produto produto) {
-        
-            produtoFacade.cadastrarProduto(produto);
-        
+
+        produtoFacade.cadastrarProduto(produto);
+
     }
 
-        @PUT
-        @Consumes(MediaType.APPLICATION_JSON)
-        public void putJson
-        (String content
+    @PUT
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public void atualizaProduto(Produto produto){
         
+        produtoFacade.atualizarProduto(produto);
+    }
+    @DELETE
+    @Path("/{id}")
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public void deletarProduto(@PathParam("id") Integer id){
         
-    
-
-        
-        
-    
-
-) {
+        produtoFacade.deletarProduto(id);
     }
 }
