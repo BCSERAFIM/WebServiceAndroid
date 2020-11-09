@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ws.WsCliente.class);
         resources.add(ws.WsProduto.class);
+        resources.add(ws.WsUsuario.class);
     }
     
 }
