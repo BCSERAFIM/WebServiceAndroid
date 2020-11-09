@@ -39,12 +39,10 @@ public class ProdutoFacade {
         
         try {
             produtoDao.inserir(produto);
-            FacesMessage msg = new FacesMessage("Produto inserido com Sucesso");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+           
         } catch (Exception e) {
-            String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+           String mensagem = e.getMessage();
+            System.out.println(mensagem);
             
         }
     }
@@ -53,29 +51,25 @@ public class ProdutoFacade {
         selecionado.setDescricao(selecionado.getDescricao().toUpperCase());
         try {
             produtoDao.atualizar(selecionado);
-            FacesMessage msg = new FacesMessage("Produto atualizado com sucesso");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+           
             
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
             
         }
         
     }
     
-    public void deletarProduto(Produto selecionado) {
+    public void deletarProduto(int id) {
         
         try {
             
-            produtoDao.deletarProduto(selecionado.getId());
-            FacesMessage msg = new FacesMessage("Produto deletado com sucesso");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            produtoDao.deletarProduto(id);
+            
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
             
         }
     }
@@ -85,20 +79,11 @@ public class ProdutoFacade {
         try {
             
             produto = produtoDao.consultarProduto(id);
-            if (produto == null) {
-                FacesMessage msg = new FacesMessage("Produto Não encontrado");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                
-            } else {
-                FacesMessage msg = new FacesMessage("Produto encontrado");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                
-            }
+           
             
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
         return produto;
         

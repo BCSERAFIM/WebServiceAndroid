@@ -78,6 +78,7 @@ public class ProdutoDao {
 
         } catch (SQLException ex) {
             throw new RuntimeException("Não encontrei o produto esperado");
+            
         } finally {
             try {
                 stmt.close();
