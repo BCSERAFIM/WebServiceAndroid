@@ -1,6 +1,5 @@
 package dao;
 
-
 import entity.Cliente;
 import entity.ItemPedido;
 import entity.Pedido;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PedidoDao {
 
@@ -69,7 +67,7 @@ public class PedidoDao {
 
     }
 
-    public List<Pedido> listarPedidoPorClienteMB(Cliente cliente) throws ClassNotFoundException {
+    public List<Pedido> listarPedidoPorClienteMB(Integer id) throws ClassNotFoundException {
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -79,21 +77,16 @@ public class PedidoDao {
 
             con = conexao.ConnectionFactory.getConnection();
             stmt = con.prepareStatement(stmtListarPedidoPorClienteMB);
-            stmt.setLong(1, cliente.getId());
+            stmt.setLong(1, id);
             ResultSet resultado = stmt.executeQuery();
-            
 
             while (resultado.next()) {
                 Pedido pedidoDoClienteMBEncontrado = new Pedido();
-                pedidoDoClienteMBEncontrado.setCliente(cliente);
                 pedidoDoClienteMBEncontrado.setData(resultado.getDate("data"));
                 pedidoDoClienteMBEncontrado.setId(resultado.getInt("id"));
                 listaPedido.add(pedidoDoClienteMBEncontrado);
 
             }
-            
-            
-            
 
             return listaPedido;
 

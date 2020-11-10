@@ -36,11 +36,11 @@ public class WsCliente {
     }
 
     @GET
-    @Path("/{cpf}")
+    @Path("/{id}")
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Cliente getClienteCpf(@PathParam("cpf") String cpf) {
-        Cliente cliente = clienteFacade.consultaCpf(cpf);
+    public Cliente getClienteCpf(@PathParam("id") Integer id) {
+        Cliente cliente = clienteFacade.consultaCpf(id);
         return cliente;
     }
 

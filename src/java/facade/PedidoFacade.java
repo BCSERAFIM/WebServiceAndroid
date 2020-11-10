@@ -5,7 +5,6 @@
  */
 package facade;
 
-
 import entity.Cliente;
 import entity.ItemPedido;
 import entity.Pedido;
@@ -28,34 +27,25 @@ import dao.PedidoDao;
 @Stateless
 public class PedidoFacade {
 
-    private ProdutoFacade produtoFacade = new ProdutoFacade();
-    private ClienteDAO clienteDao = new ClienteDAO();
-    private PedidoDao pedidoDao = new PedidoDao();
-    private ItemPedidoDao itemPedidoDao = new ItemPedidoDao();
-    private Cliente cliente = new Cliente();
+    private final ProdutoFacade produtoFacade = new ProdutoFacade();
+    private final ClienteDAO clienteDao = new ClienteDAO();
+    private final PedidoDao pedidoDao = new PedidoDao();
+    private final ItemPedidoDao itemPedidoDao = new ItemPedidoDao();
+    private final Cliente cliente = new Cliente();
     private Integer quantidade;
 
-    public List<Pedido> consultarPedido(Cliente cliente) {
+    public List<Pedido> consultarPedido(Integer id) {
         List<Pedido> pedidos = new ArrayList<>();
         try {
 
-            pedidos = pedidoDao.listarPedidoPorClienteMB(cliente);
-            if (pedidos.isEmpty()) {
-                FacesMessage msg = new FacesMessage("Não encontrei pedido");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-
-            } else {
-                FacesMessage msg = new FacesMessage("Pedido localizado com sucesso");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-
-            }
+            pedidos = pedidoDao.listarPedidoPorClienteMB(id);
+            return pedidos;
 
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
-        return pedidos;
+
     }
 
     public List<ItemPedido> consultaItensPedido(Pedido pedido) {
@@ -63,13 +53,12 @@ public class PedidoFacade {
 
         try {
             itens = itemPedidoDao.consultarItemDoPedido(pedido.getId());
+            return itens;
 
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
-        return itens;
 
     }
 
@@ -98,11 +87,9 @@ public class PedidoFacade {
 
     }
 
-    public List<ItemPedido> novoItem(List<ItemPedido> itemPedidos,Produto novoProduto, Integer quantidade) {
+    public List<ItemPedido> novoItem(List<ItemPedido> itemPedidos, Produto novoProduto, Integer quantidade) {
 
-       
         ItemPedido novoItem = new ItemPedido();
-       
 
         if (novoProduto != null && quantidade != null) {
 
@@ -139,10 +126,8 @@ public class PedidoFacade {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
-        
+
         return itemPedidos;
-        
-        
 
     }
 
@@ -161,12 +146,12 @@ public class PedidoFacade {
     }
 
     public Cliente clienteSelecionar(String nome) throws ClassNotFoundException {
-        Cliente clienteSelecionado =new Cliente();
+        Cliente clienteSelecionado = new Cliente();
         List<Cliente> clientes = clienteDao.listarCliente();
         for (Cliente cliente : clientes) {
             String procura = cliente.getId() + " " + cliente.getCpf() + " " + cliente.getNome() + " " + cliente.getSobreNome();
             if (procura.contentEquals(nome)) {
-                clienteSelecionado= cliente;
+                clienteSelecionado = cliente;
             }
         }
         return clienteSelecionado;
@@ -190,20 +175,20 @@ public class PedidoFacade {
         return results;
     }
 
-    public Produto produtoSelecionar(String nome) throws ClassNotFoundException{
-       
+    public Produto produtoSelecionar(String nome) throws ClassNotFoundException {
+
         List<Produto> produtos = new ArrayList<>();
-        Produto produtoEncontrado =new Produto();
+        Produto produtoEncontrado = new Produto();
         produtos = produtoFacade.listaProduto();
         for (Produto produto : produtos) {
             String procura = produto.getId() + " " + produto.getDescricao();
             if (procura.contentEquals(nome)) {
-               produtoEncontrado = produto;
+                produtoEncontrado = produto;
             }
         }
-        
-       return produtoEncontrado;
-       // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produtoselecionado", selecionado);
+
+        return produtoEncontrado;
+        // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produtoselecionado", selecionado);
     }
 
 }

@@ -82,10 +82,10 @@ public class ClienteFacade {
 
     }
 
-    public Cliente consultaCpf(String cpf) {
+    public Cliente consultaCpf(Integer id) {
         Cliente cliente = new Cliente();
         try {
-            cliente = clienteDAO.consultarClientePeloCpfCnpj(cpf);
+            cliente = clienteDAO.consultarClientePeloCpfCnpj(id);
             return cliente;
         } catch (Exception e) {
             String mensagem = e.getMessage();

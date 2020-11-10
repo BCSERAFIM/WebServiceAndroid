@@ -15,7 +15,7 @@ public class ClienteDAO {
 
     private final String stmtInserirCliente = "INSERT INTO ORCAMENTO.CLIENTE(CPF,NOME,SOBRENOME) VALUES(?,?,?)";
     private final String stmtConsultarCliente = "SELECT ID,CPF,NOME,SOBRENOME FROM ORCAMENTO.CLIENTE WHERE ID = ? ";
-    private final String stmtConsultarClientePeloCpfCnpj = "SELECT ID,CPF,NOME,SOBRENOME FROM ORCAMENTO.CLIENTE WHERE CPF = ? ";
+    private final String stmtConsultarClientePeloid = "SELECT ID,CPF,NOME,SOBRENOME FROM ORCAMENTO.CLIENTE WHERE ID = ? ";
 
     private final String stmtListarClientes = "SELECT ID,CPF,NOME,SOBRENOME FROM orcamento.cliente";
     private final String stmtExcluirCliente = "DELETE FROM ORCAMENTO.CLIENTE WHERE ID = ? ";
@@ -97,7 +97,7 @@ public class ClienteDAO {
         }
     }
 
-    public Cliente consultarClientePeloCpfCnpj(String cpf) throws ClassNotFoundException {
+    public Cliente consultarClientePeloCpfCnpj(Integer id) throws ClassNotFoundException {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -105,8 +105,8 @@ public class ClienteDAO {
         try {
 
             con = conexao.ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(stmtConsultarClientePeloCpfCnpj);
-            stmt.setString(1, cpf);
+            stmt = con.prepareStatement(stmtConsultarClientePeloid);
+            stmt.setInt(1, id);
             
 
             rs = stmt.executeQuery();
