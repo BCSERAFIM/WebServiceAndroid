@@ -48,12 +48,26 @@ public class PedidoFacade {
 
     }
 
-    public List<ItemPedido> consultaItensPedido(Pedido pedido) {
+    public List<ItemPedido> consultaItensPedido(Integer id) {
         List<ItemPedido> itens = new ArrayList<>();
 
         try {
-            itens = itemPedidoDao.consultarItemDoPedido(pedido.getId());
+            itens = itemPedidoDao.consultarItemDoPedido(id);
             return itens;
+
+        } catch (Exception e) {
+            String mensagem = e.getMessage();
+            return null;
+        }
+
+    }
+    
+    public Pedido consultaPedidoItens(Integer id) {
+        Pedido pedido = new Pedido();
+
+        try {
+            pedido = pedidoDao.PedidoItens(id);
+            return pedido;
 
         } catch (Exception e) {
             String mensagem = e.getMessage();

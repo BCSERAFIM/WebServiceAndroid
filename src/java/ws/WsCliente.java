@@ -43,7 +43,8 @@ public class WsCliente {
         Cliente cliente = clienteFacade.consultaCpf(id);
         return cliente;
     }
-
+    
+    
     @POST
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")

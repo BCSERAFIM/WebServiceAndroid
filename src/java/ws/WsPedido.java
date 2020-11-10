@@ -34,11 +34,24 @@ public class WsPedido {
     @Path("/{id}")
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public List<Pedido> getPedidoCliente(@PathParam("id") Integer id) {
+     /*Traz uma lista de pedido sem intens, consultando pelo id do cliente*/
+    public List<Pedido> getPedidoIdCliente(@PathParam("id") Integer id) {
         List<Pedido> lista = pedidoFacade.consultarPedido(id);
         return lista;
     }
-
+    
+    @GET
+    @Path("itens/{id}")
+    /*traz um único pedido com itens consultando pelo id do Pedido*/
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Pedido getPedidoItens(@PathParam("id") Integer id) {
+        Pedido pedido = new Pedido();
+         pedido=pedidoFacade.consultaPedidoItens(id);
+        return pedido;
+    }
+    
+    
     @POST
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")

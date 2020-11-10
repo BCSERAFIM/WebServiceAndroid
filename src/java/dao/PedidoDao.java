@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 public class PedidoDao {
 
@@ -19,6 +20,7 @@ public class PedidoDao {
             + " values (?,?,?)";
 
     private final String stmtListarPedidoPorClienteMB = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID_CLIENTE = ? ";
+    private final String stmtPedidoItem = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID = ? ";
     private final String stmtExcluirPedido = "DELETE FROM PEDIDO WHERE ID = ? ";
 
     public void inserir(Pedido pedido) throws SQLException, ClassNotFoundException {
@@ -89,6 +91,43 @@ public class PedidoDao {
             }
 
             return listaPedido;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Não encontrei o cliente esperado");
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
+        }
+    }
+
+    public Pedido PedidoItens(Integer idPedido) throws ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = conexao.ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtPedidoItem);
+            stmt.setLong(1, idPedido);
+            rs = stmt.executeQuery();
+            rs.next();
+            Pedido pedido = new Pedido();
+            pedido.setData(rs.getDate("data"));
+            pedido.setId(rs.getInt("id"));
+            List<ItemPedido> itemPedido = new ArrayList<>();
+            itemPedido=itensPedidoCliente(pedido.getId());
+            pedido.setItemPedido(itemPedido);
+
+            return pedido;
 
         } catch (SQLException ex) {
             throw new RuntimeException("Não encontrei o cliente esperado");
