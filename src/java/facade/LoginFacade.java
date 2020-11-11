@@ -24,8 +24,7 @@ public class LoginFacade {
 
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, "Erro no Login!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
 
         return usuario;

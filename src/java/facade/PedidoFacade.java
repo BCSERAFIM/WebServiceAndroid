@@ -81,21 +81,20 @@ public class PedidoFacade {
 
         try {
             if (pedido.getItemPedido().isEmpty()) {
-                FacesMessage msg = new FacesMessage("Coloque pelo menos um item");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+                System.out.println("Coloque pelo menos um item");
+                
 
             } else {
 
                 pedidoDao.inserir(pedido);
-                FacesMessage msg = new FacesMessage("Pedido inserido com sucesso");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+               System.out.println("Pedido inserido com sucesso");
+              
 
             }
 
         } catch (Exception e) {
             String mensagem = e.getMessage();
-            FacesMessage msg = new FacesMessage(mensagem);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println(mensagem);
         }
         return itens;
 
@@ -131,13 +130,13 @@ public class PedidoFacade {
                 itemPedidos.add(novoItem);
             }
 
-            FacesMessage msg = new FacesMessage("Item no carrinho");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+             System.out.println("Item no carrinho");
+            
 
         } else {
 
-            FacesMessage msg = new FacesMessage("Item vazio");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+             System.out.println("Item vazio");
+           
 
         }
 
