@@ -5,11 +5,13 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author carloseduardo
  */
-public class Cliente {
+public class Cliente implements Serializable {
 
     private Integer id;
     private String cpf;

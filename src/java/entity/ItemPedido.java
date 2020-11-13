@@ -1,8 +1,10 @@
 
 package entity;
 
+import java.io.Serializable;
 
-public class ItemPedido {
+
+public class ItemPedido implements Serializable {
 
     private int quantidade;
     private Produto produto;

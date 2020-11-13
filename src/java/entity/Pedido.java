@@ -2,12 +2,13 @@
 package entity;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
-public class Pedido {
+public class Pedido implements Serializable {
 
     private int id;
     private Date data;

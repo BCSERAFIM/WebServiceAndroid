@@ -1,8 +1,10 @@
 
 package entity;
 
+import java.io.Serializable;
 
-public class Produto {
+
+public class Produto implements Serializable {
 
     private Integer id;
     private String descricao;
