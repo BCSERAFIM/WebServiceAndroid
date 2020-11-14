@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import dao.ProdutoDao;
+import java.io.Serializable;
 
 
 @Stateless
-public class ProdutoFacade {
+public class ProdutoFacade implements Serializable {
     
     ProdutoDao produtoDao = new ProdutoDao();
     List<ProdutoDao> lista;

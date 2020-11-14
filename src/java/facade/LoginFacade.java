@@ -5,14 +5,13 @@ import entity.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import dao.LoginDao;
+import java.io.Serializable;
 
 
 @Stateless
-public class LoginFacade {
+public class LoginFacade implements Serializable{
 
     LoginDao loginDao = new LoginDao();
     Usuario usuario = new Usuario();

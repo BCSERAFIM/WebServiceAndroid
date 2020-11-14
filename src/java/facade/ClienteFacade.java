@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.swing.JOptionPane;
 import dao.ClienteDAO;
+import java.io.Serializable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,7 +20,7 @@ import dao.ClienteDAO;
  * @author Carlos Eduardo
  */
 @Stateless
-public class ClienteFacade {
+public class ClienteFacade implements Serializable{
 
     ClienteDAO clienteDAO = new ClienteDAO();
     List<Cliente> lista;
