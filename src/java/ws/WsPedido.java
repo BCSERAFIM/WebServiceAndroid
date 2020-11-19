@@ -29,6 +29,14 @@ public class WsPedido {
     public WsPedido() {
     }
 
+    @GET
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
+     /*Traz uma lista de pedido sem intens, consultando pelo id do cliente*/
+    public List<Pedido> getPedidos() {
+        List<Pedido> lista = pedidoFacade.consultarPedido();
+        return lista;
+    }
   
     @GET
     @Path("/{id}")

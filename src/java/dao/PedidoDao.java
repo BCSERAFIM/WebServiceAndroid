@@ -19,10 +19,61 @@ public class PedidoDao {
             + " (id_pedido,id_produto,qtdade)"
             + " values (?,?,?)";
 
+    private final String stmtListarAllPedidoPorClienteMB = "SELECT PE.ID,PE.DATA,CLI.ID AS ID_CLIENTE,CLI.CPF,CLI.NOME,CLI.SOBRENOME FROM PEDIDO PE INNER JOIN CLIENTE CLI";
     private final String stmtListarPedidoPorClienteMB = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID_CLIENTE = ? ";
     private final String stmtPedidoItem = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID = ? ";
     private final String stmtExcluirPedido = "DELETE FROM PEDIDO WHERE ID = ? ";
 
+    
+    public List<Pedido> listarPedidoPorClienteMB() throws ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        List<Pedido> listaPedido = new ArrayList<>();
+
+        try {
+
+            //1 = Listar Clientes que tem pedido.
+            //2 = Listar Pedidos do cliente
+            //3 = Listar Items Pedidos do Cliente
+            
+            con = conexao.ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtListarAllPedidoPorClienteMB);
+            ResultSet resultado = stmt.executeQuery();
+
+            while (resultado.next()) {
+                Pedido pedidoDoClienteMBEncontrado = new Pedido();
+                pedidoDoClienteMBEncontrado.setData(resultado.getDate("data"));
+                pedidoDoClienteMBEncontrado.setId(resultado.getInt("id"));
+                Cliente cli = new Cliente();
+                
+                cli.setId(resultado.getInt("id_cliente"));
+                cli.setCpf(resultado.getString("cpf"));
+                cli.setNome(resultado.getString("nome"));
+                cli.setSobreNome(resultado.getString("sobreNome"));
+                pedidoDoClienteMBEncontrado.setCliente(cli);
+                pedidoDoClienteMBEncontrado.setItemPedido(itensPedidoCliente(pedidoDoClienteMBEncontrado.getId()));
+                listaPedido.add(pedidoDoClienteMBEncontrado);
+            }
+
+            return listaPedido;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Não encontrei o cliente esperado");
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
+        }
+    }
+    
     public void inserir(Pedido pedido) throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stmt = null;
