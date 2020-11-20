@@ -36,6 +36,7 @@ public class WsPedido {
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
      /*Traz uma lista de pedido sem intens, consultando pelo id do cliente*/
     public List<Pedido> getPedidoIdCliente(@PathParam("id") Integer id) {
+        System.out.println("Entro na lista de pedidos do cliente ID: "+id);
         List<Pedido> lista = pedidoFacade.consultarPedido(id);
         return lista;
     }
