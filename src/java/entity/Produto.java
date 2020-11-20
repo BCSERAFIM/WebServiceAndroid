@@ -8,7 +8,7 @@ public class Produto implements Serializable {
 
     private Integer id;
     private String descricao;
-
+    private Integer Qtd;
     
     
     public Produto() {
@@ -18,7 +18,13 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
        
-    
+    public Integer getQtd() {
+        return Qtd;
+    }
+
+    public void setQtd(Integer Qtd) {
+        this.Qtd = Qtd;
+    }
 
     public Integer getId() {
         return id;

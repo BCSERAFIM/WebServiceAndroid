@@ -45,6 +45,20 @@ public class PedidoFacade implements Serializable{
 
     }
 
+    public List<Produto> consultarProdutoPedido(Integer idPedido) {
+        List<Produto> produtos = new ArrayList<>();
+        try {
+
+            produtos = pedidoDao.listarProdutoPedidoMB(idPedido);
+            return produtos;
+
+        } catch (Exception e) {
+            String mensagem = e.getMessage();
+            return null;
+        }
+
+    }
+    
     public List<Pedido> consultarPedido(Integer id) {
         List<Pedido> pedidos = new ArrayList<>();
         try {

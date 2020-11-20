@@ -3,6 +3,7 @@ package dao;
 import entity.Cliente;
 import entity.ItemPedido;
 import entity.Pedido;
+import entity.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ public class PedidoDao {
 
     private final String stmtListarAllPedidoPorClienteMB = "SELECT PE.ID,PE.DATA,CLI.ID AS ID_CLIENTE,CLI.CPF,CLI.NOME,CLI.SOBRENOME FROM PEDIDO PE INNER JOIN CLIENTE CLI";
     private final String stmtListarPedidoPorClienteMB = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID_CLIENTE = ? ";
+    private final String stmtListarProdutoPorPedidoMB = "SELECT PRO.DESCRICAO,IDP.QTDADE AS QTD FROM PRODUTO PRO INNER JOIN ITEM_DO_PEDIDO IDP ON PRO.ID = IDP.ID_PRODUTO WHERE IDP.ID_PEDIDO = ?";
     private final String stmtPedidoItem = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID = ? ";
     private final String stmtExcluirPedido = "DELETE FROM PEDIDO WHERE ID = ? ";
 
@@ -120,6 +122,45 @@ public class PedidoDao {
 
     }
 
+    
+     public List<Produto> listarProdutoPedidoMB(Integer idPedido) throws ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        List<Produto> listaPedido = new ArrayList<>();
+
+        try {
+
+            con = conexao.ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtListarProdutoPorPedidoMB);
+            stmt.setLong(1, idPedido);
+            ResultSet resultado = stmt.executeQuery();
+
+            while (resultado.next()) {
+                Produto entity = new Produto();
+                entity.setDescricao(resultado.getString("descricao"));
+                entity.setQtd(resultado.getInt("qtdade"));
+                listaPedido.add(entity);
+            }
+
+            return listaPedido;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Não encontrei o cliente esperado");
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
+        }
+    }
+    
     public List<Pedido> listarPedidoPorClienteMB(Integer id) throws ClassNotFoundException {
         Connection con = null;
         PreparedStatement stmt = null;
