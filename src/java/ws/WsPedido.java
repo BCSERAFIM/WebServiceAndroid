@@ -40,16 +40,6 @@ public class WsPedido {
     }
   
     @GET
-    @Path("produto-pedido/{id}")
-    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
-    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
-     /*Traz uma lista de pedido sem intens, consultando pelo id do pedido*/
-    public List<Produto> getProdutoIdPedido(@PathParam("id") Integer id) {
-        List<Produto> lista = pedidoFacade.consultarProdutoPedido(id);
-        return lista;
-    }
-    
-    @GET
     @Path("/{id}")
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON + ";charset=utf-8")
