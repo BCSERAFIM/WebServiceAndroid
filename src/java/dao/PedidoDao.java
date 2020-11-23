@@ -20,7 +20,7 @@ public class PedidoDao {
             + " (id_pedido,id_produto,qtdade)"
             + " values (?,?,?)";
 
-    private final String stmtListarAllPedidoPorClienteMB = "SELECT PE.ID,PE.DATA,CLI.ID AS ID_CLIENTE,CLI.CPF,CLI.NOME,CLI.SOBRENOME FROM PEDIDO PE INNER JOIN CLIENTE CLI";
+    private final String stmtListarAllPedidoPorClienteMB = "SELECT PE.ID,PE.DATA,CLI.ID AS ID_CLIENTE,CLI.CPF,CLI.NOME,CLI.SOBRENOME FROM PEDIDO PE INNER JOIN CLIENTE CLI ON (PE.ID_CLIENTE=CLI.ID)";
     private final String stmtListarPedidoPorClienteMB = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID_CLIENTE = ? ";
     private final String stmtPedidoItem = "SELECT ID,DATA,ID_CLIENTE FROM PEDIDO WHERE ID = ? ";
     private final String stmtExcluirPedido = "DELETE FROM PEDIDO WHERE ID = ? ";
